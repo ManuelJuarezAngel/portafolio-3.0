@@ -1,0 +1,16 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { ExperienceTimeline } from './react/ExperienceTimeline';
+---
+
+<section id="experiencia" class="py-20 md:py-28 relative ambient-section ambient-section--reverse wave-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionHeading
+      badge="Trayectoria Profesional"
+      title="Experiencia laboral comprobable"
+      subtitle="5 años desarrollando plataformas empresariales, aplicaciones móviles y productos SaaS."
+    />
+
+    <ExperienceTimeline client:visible />
+  </div>
+</section>

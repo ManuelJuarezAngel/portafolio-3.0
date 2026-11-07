@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1e1b4b"/>
+        <stop offset="50%" stop-color="#0f172a"/>
+        <stop offset="100%" stop-color="#311b92"/>
+      </linearGradient>
+      <linearGradient id="accent3" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#8b5cf6"/>
+        <stop offset="50%" stop-color="#ec4899"/>
+        <stop offset="100%" stop-color="#3b82f6"/>
+      </linearGradient>
+    </defs>
+    <rect width="1200" height="630" fill="url(#bg3)"/>
+    <circle cx="900" cy="150" r="260" fill="#8b5cf6" opacity="0.15" filter="blur(80px)"/>
+    
+    <!-- Enterprise Dashboard UI Container -->
+    <rect x="120" y="80" width="960" height="470" rx="16" fill="#0f172a" stroke="url(#accent3)" stroke-width="2"/>
+    <rect x="120" y="80" width="960" height="40" rx="16" fill="#1e1b4b"/>
+    <text x="150" y="105" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="14">Sistema Empresarial de Reclamaciones &amp; KPI (PHP MVC + ApexCharts)</text>
+
+    <!-- Confidential Ribbon -->
+    <rect x="880" y="80" width="200" height="40" fill="#dc2626" rx="0"/>
+    <text x="980" y="105" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="12" text-anchor="middle">CONFIDENCIAL</text>
+
+    <!-- Charts area -->
+    <rect x="150" y="140" width="430" height="240" rx="10" fill="#1e293b"/>
+    <text x="170" y="175" fill="#c084fc" font-family="sans-serif" font-weight="bold" font-size="16">Reclamaciones por Planta de Producción</text>
+    
+    <!-- Bar charts -->
+    <rect x="170" y="320" width="40" height="90" rx="4" fill="#8b5cf6"/>
+    <rect x="230" y="270" width="40" height="140" rx="4" fill="#ec4899"/>
+    <rect x="290" y="220" width="40" height="190" rx="4" fill="#3b82f6"/>
+    <rect x="350" y="300" width="40" height="110" rx="4" fill="#10b981"/>
+    <rect x="410" y="250" width="40" height="160" rx="4" fill="#f59e0b"/>
+
+    <!-- Right KPI Cards -->
+    <rect x="610" y="140" width="440" height="110" rx="10" fill="#1e293b"/>
+    <text x="630" y="175" fill="#94a3b8" font-family="sans-serif" font-size="13">Ingesta &amp; Procesamiento Masivo</text>
+    <text x="630" y="210" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="24">Importación XML / Excel + AWS S3</text>
+
+    <rect x="610" y="270" width="440" height="110" rx="10" fill="#1e293b"/>
+    <text x="630" y="305" fill="#94a3b8" font-family="sans-serif" font-size="13">Tiempo de Respuesta Investigación</text>
+    <text x="630" y="340" fill="#34d399" font-family="sans-serif" font-weight="bold" font-size="24">Reducción del 50% en resolución</text>
+
+    <!-- Data Table preview -->
+    <rect x="150" y="400" width="900" height="120" rx="10" fill="#020617" stroke="#ffffff" stroke-opacity="0.05"/>
+    <text x="170" y="435" fill="#94a3b8" font-family="monospace" font-size="13">ID | REGION | PRODUCTO | ACCION CORRECTIVA | ESTADO | EVIDENCIA</text>
+    <text x="170" y="465" fill="#22c55e" font-family="monospace" font-size="13">#8942 | Norte   | Lote B-12| Sanitización Filtro| Cerrado | S3/ev_8942.pdf</text>
+    <text x="170" y="490" fill="#38bdf8" font-family="monospace" font-size="13">#8943 | Centro  | Lote A-05| Calibración Módulo | En Proceso | S3/ev_8943.pdf</text>
+  </svg>

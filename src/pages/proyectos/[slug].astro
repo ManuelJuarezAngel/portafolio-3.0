@@ -1,0 +1,274 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Navbar } from '../../components/react/Navbar';
+import Footer from '../../components/Footer.astro';
+import { ArrowLeft, ArrowRight, ShieldAlert, CheckCircle2, Cpu, ExternalLink } from 'lucide-react';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  const sorted = projects.sort((a, b) => a.data.order - b.data.order);
+
+  return sorted.map((project, index) => {
+    const prevProject = index > 0 ? sorted[index - 1] : null;
+    const nextProject = index < sorted.length - 1 ? sorted[index + 1] : null;
+    
+    return {
+      params: { slug: project.id },
+      props: { project, prevProject, nextProject },
+    };
+  });
+}
+
+const { project, prevProject, nextProject } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+---
+
+<BaseLayout
+  title={`${data.title} | Caso de Estudio - Manuel Juárez`}
+  description={data.summary}
+  image={data.image}
+>
+  <Navbar client:load />
+
+  <main id="main-content" class="pt-32 pb-24 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Back Navigation Button -->
+      <div class="mb-8">
+        <a
+          href="/#proyectos"
+          class="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-semibold rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-500 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Volver a proyectos</span>
+        </a>
+      </div>
+
+      <!-- Project Hero Header -->
+      <div class="flex flex-col gap-6 mb-12">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="px-3 py-1 text-xs font-mono font-semibold uppercase tracking-wider rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+            {data.category}
+          </span>
+
+          <span class="px-3 py-1 text-xs font-mono font-semibold rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+            {data.status}
+          </span>
+
+          {data.isConfidential && (
+            <span class="flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold rounded-full bg-red-600 text-white shadow-sm">
+              <ShieldAlert className="w-3.5 h-3.5" />
+              <span>Proyecto Confidencial</span>
+            </span>
+          )}
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight [overflow-wrap:anywhere]">
+          {data.title}
+        </h1>
+
+        <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+          {data.summary}
+        </p>
+
+        <!-- Demo / Repo Links if available -->
+        <div class="flex flex-wrap gap-4 pt-2">
+          {data.demoUrl && (
+            <a
+              href={data.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-all shadow-md"
+            >
+              <span>Ver sitio en vivo</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          )}
+          {data.repoUrl && (
+            <a
+              href={data.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-slate-800 dark:text-white bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+            >
+              <span>Ver repositorio</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Cover Image Showcase -->
+      <div class="mb-16 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl bg-slate-950 max-h-[500px]">
+        <img
+          src={data.image}
+          alt={data.title}
+          class="w-full h-full object-cover object-top"
+        />
+      </div>
+
+      <!-- Problem & Solution Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <!-- Problem Card -->
+        <div class="p-5 sm:p-8 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 shadow-lg flex flex-col gap-4">
+          <span class="text-xs font-mono font-semibold text-red-500 uppercase tracking-wider">
+            El Problema
+          </span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+            Desafío inicial del cliente
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            {data.problem}
+          </p>
+        </div>
+
+        <!-- Solution Card -->
+        <div class="p-5 sm:p-8 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 shadow-lg flex flex-col gap-4">
+          <span class="text-xs font-mono font-semibold text-emerald-500 uppercase tracking-wider">
+            La Solución
+          </span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+            Enfoque tecnológico implementado
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            {data.solution}
+          </p>
+        </div>
+      </div>
+
+      <!-- My Role Section -->
+      <div class="p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-900/10 via-indigo-900/10 to-slate-900/10 dark:from-blue-950/40 dark:via-indigo-950/40 dark:to-slate-900/60 border border-blue-500/20 shadow-xl mb-16">
+        <span class="text-xs font-mono font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider block mb-2">
+          Mi Participación y Responsabilidad
+        </span>
+        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+          Liderazgo y Ejecución Técnica
+        </h3>
+        <p class="text-base text-slate-700 dark:text-slate-200 leading-relaxed">
+          {data.myRole}
+        </p>
+      </div>
+
+      <!-- Tech Stack Used -->
+      <div class="mb-16">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">
+          Tecnologías e Integraciones
+        </h3>
+        <div class="flex flex-wrap gap-2.5">
+          {data.technologies.map((tech) => (
+            <span
+              class="px-4 py-2 text-xs font-mono font-semibold rounded-xl bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-sm"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Technical Challenges & Results Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <!-- Challenges -->
+        <div class="p-5 sm:p-8 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            <Cpu className="w-5 h-5 text-amber-500" />
+            <span>Retos Técnicos Superados</span>
+          </h3>
+          <ul class="flex flex-col gap-4">
+            {data.technicalChallenges.map((challenge, idx) => (
+              <li class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-amber-500/10 text-amber-500 font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">
+                  {idx + 1}
+                </span>
+                <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {challenge}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Results -->
+        <div class="p-5 sm:p-8 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+            <span>Resultados de Negocio</span>
+          </h3>
+          <ul class="flex flex-col gap-4">
+            {data.results.map((result) => (
+              <li class="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {result}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Additional Markdown Content -->
+      <div class="prose prose-slate dark:prose-invert max-w-none mb-16 p-5 sm:p-8 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 shadow-lg [overflow-wrap:anywhere]">
+        <Content />
+      </div>
+
+      <!-- Gallery Grid if available -->
+      {data.gallery && data.gallery.length > 0 && (
+        <div class="mb-16">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">
+            Galería del Proyecto
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {data.gallery.map((imgUrl, idx) => (
+              <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-md bg-slate-950">
+                <img
+                  src={imgUrl}
+                  alt={`${data.title} screenshot ${idx + 1}`}
+                  class="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Previous / Next Project Navigation -->
+      <div class="pt-12 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6">
+        {prevProject ? (
+          <a
+            href={`/proyectos/${prevProject.id}`}
+            class="flex items-center gap-3 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500 transition-all text-left w-full sm:w-auto"
+          >
+            <ArrowLeft className="w-5 h-5 text-blue-500 shrink-0" />
+            <div class="flex flex-col">
+              <span class="text-[10px] font-mono text-slate-400">Proyecto anterior</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-white">{prevProject.data.title}</span>
+            </div>
+          </a>
+        ) : (
+          <div />
+        )}
+
+        {nextProject ? (
+          <a
+            href={`/proyectos/${nextProject.id}`}
+            class="flex items-center justify-end gap-3 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500 transition-all text-right w-full sm:w-auto"
+          >
+            <div class="flex flex-col">
+              <span class="text-[10px] font-mono text-slate-400">Siguiente proyecto</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-white">{nextProject.data.title}</span>
+            </div>
+            <ArrowRight className="w-5 h-5 text-blue-500 shrink-0" />
+          </a>
+        ) : (
+          <div />
+        )}
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

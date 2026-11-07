@@ -1,0 +1,47 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { workProcess } from '../data/portfolioData';
+import { Compass, LayoutTemplate, Code, CheckCircle2 } from 'lucide-react';
+
+const icons = [Compass, LayoutTemplate, Code, CheckCircle2];
+---
+
+<section class="py-20 md:py-28 relative ambient-section ambient-section--reverse wave-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionHeading
+      badge="Metodología"
+      title="Forma de trabajo y ciclo de vida"
+      subtitle="Dominio completo de cada etapa del desarrollo de software, garantizando entregables de alta calidad y alto rendimiento."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {workProcess.map((step, idx) => {
+        const IconComponent = icons[idx % icons.length];
+        return (
+          <div
+            class="group relative p-5 sm:p-8 rounded-3xl glass-card hover:shadow-xl hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between"
+          >
+            <div class="flex flex-col gap-5">
+              <div class="flex items-center justify-between">
+                <span class="text-3xl font-black font-mono text-slate-300 dark:text-slate-700 group-hover:text-blue-500 transition-colors">
+                  {step.number}
+                </span>
+                <div class="p-3 rounded-2xl bg-blue-500/10 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
+                  <IconComponent className="w-6 h-6" />
+                </div>
+              </div>
+
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white">
+                {step.title}
+              </h4>
+
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                {step.description}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

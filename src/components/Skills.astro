@@ -1,0 +1,16 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { TechTabs } from './react/TechTabs';
+---
+
+<section id="tecnologias" class="py-20 md:py-28 relative ambient-section wave-section bg-gradient-to-br from-blue-50/70 via-violet-50/40 to-cyan-50/50 dark:from-blue-950/20 dark:via-violet-950/10 dark:to-cyan-950/15 border-y border-blue-200/40 dark:border-blue-800/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionHeading
+      badge="Stack Tecnológico"
+      title="Herramientas y tecnologías dominadas"
+      subtitle="Organizadas por categoría. Herramientas comprobadas en producción sin métricas ni niveles inventados."
+    />
+
+    <TechTabs client:visible />
+  </div>
+</section>

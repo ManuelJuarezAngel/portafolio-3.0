@@ -1,0 +1,65 @@
+---
+import { personalInfo } from '../data/portfolioData';
+import { ScrollToTop } from './react/ScrollToTop';
+import { LinkedinIcon, GithubIcon } from './SocialIcons';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="py-12 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800/80 transition-colors">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200 dark:border-slate-800">
+      
+      {/* Brand & Title */}
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-mono font-bold text-sm shadow-md">
+          MJ
+        </div>
+        <div class="flex flex-col text-center md:text-left">
+          <span class="font-bold text-sm text-slate-900 dark:text-white">
+            {personalInfo.name}
+          </span>
+          <span class="text-xs font-mono text-slate-500 dark:text-slate-400">
+            {personalInfo.role}
+          </span>
+        </div>
+      </div>
+
+      {/* Social Links */}
+      <div class="flex items-center gap-4">
+        <a
+          href={personalInfo.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn Profile"
+          class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 transition-all duration-200"
+        >
+          <LinkedinIcon className="w-5 h-5" />
+        </a>
+
+        <a
+          href={personalInfo.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub Profile"
+          class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 transition-all duration-200"
+        >
+          <GithubIcon className="w-5 h-5" />
+        </a>
+      </div>
+    </div>
+
+    {/* Bottom Copyright & Tech Disclaimer */}
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500 dark:text-slate-400 text-center sm:text-left">
+      <p>
+        © {currentYear} {personalInfo.name}. Todos los derechos reservados.
+      </p>
+
+      <p class="flex items-center gap-1">
+        <span>Desarrollado con Astro, TypeScript y Tailwind CSS</span>
+      </p>
+    </div>
+  </div>
+
+  <ScrollToTop client:idle />
+</footer>

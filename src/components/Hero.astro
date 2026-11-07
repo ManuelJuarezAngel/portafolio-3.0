@@ -1,0 +1,107 @@
+---
+import AvailabilityBadge from './AvailabilityBadge.astro';
+import HeroVisual from './HeroVisual.astro';
+import { personalInfo } from '../data/portfolioData';
+import { Download, ArrowRight, Mail, MapPin } from 'lucide-react';
+import { LinkedinIcon, GithubIcon } from './SocialIcons';
+---
+
+<section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden ambient-section wave-section">
+  <!-- Subtle Background Grid & Glows -->
+  <div class="absolute inset-0 tech-grid-bg opacity-70 pointer-events-none" data-parallax data-parallax-speed="0.12"></div>
+
+  <div class="hero-orbit hero-orbit--one pointer-events-none" aria-hidden="true"></div>
+  <div class="hero-orbit hero-orbit--two pointer-events-none" aria-hidden="true"></div>
+  <div class="hero-beam pointer-events-none" aria-hidden="true"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      {/* Left Column: Text & Content */}
+      <div class="lg:col-span-7 flex flex-col items-start gap-6 text-left">
+        <AvailabilityBadge />
+
+        <div class="flex flex-col gap-2">
+          <span class="text-sm sm:text-base font-mono font-semibold text-blue-600 dark:text-blue-400">
+            {personalInfo.role}
+          </span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+            {personalInfo.name}
+          </h1>
+        </div>
+
+        <p class="text-xl sm:text-2xl font-semibold text-gradient leading-snug">
+          "{personalInfo.mainMessage}"
+        </p>
+
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+          {personalInfo.description}
+        </p>
+
+        <div class="flex items-start sm:items-center gap-2 max-w-full text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-900/80 px-3.5 py-2 sm:py-1.5 rounded-2xl sm:rounded-full border border-slate-200 dark:border-slate-800">
+          <MapPin className="w-4 h-4 text-blue-500 shrink-0 mt-0.5 sm:mt-0" />
+          <span>{personalInfo.location}</span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 pt-2 w-full sm:w-auto">
+          <a
+            href="#proyectos"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-2xl transition-all duration-200 shadow-lg shadow-blue-500/25 active:scale-95"
+          >
+            <span>Ver proyectos</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+
+          <a
+            href={personalInfo.cvUrl}
+            download="cv-manuel-juarez.pdf"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-800 dark:text-white bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-700/90 rounded-2xl border border-slate-200 dark:border-slate-700 transition-all duration-200 active:scale-95"
+          >
+            <Download className="w-4 h-4 text-blue-500" />
+            <span>Descargar CV</span>
+          </a>
+
+          <a
+            href="#contacto"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            <Mail className="w-4 h-4" />
+            <span>Contactarme</span>
+          </a>
+        </div>
+
+        <!-- Social Links -->
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-4 border-t border-slate-200 dark:border-slate-800/80 w-full">
+          <span class="text-xs font-mono text-slate-400">Conecta conmigo:</span>
+          
+          <a
+            href={personalInfo.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn de Manuel Juárez"
+            class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 transition-all duration-200"
+          >
+            <LinkedinIcon className="w-5 h-5" />
+          </a>
+
+          <a
+            href={personalInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub de Manuel Juárez"
+            class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:scale-110 transition-all duration-200"
+          >
+            <GithubIcon className="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      {/* Right Column: Hero Visual Graphic */}
+      <div class="lg:col-span-5">
+        <HeroVisual />
+      </div>
+
+    </div>
+  </div>
+</section>

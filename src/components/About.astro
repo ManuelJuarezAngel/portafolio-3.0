@@ -1,0 +1,67 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { aboutCards } from '../data/portfolioData';
+import { Server, Layout, Smartphone, Zap } from 'lucide-react';
+
+const cardIcons = [Server, Layout, Smartphone, Zap];
+---
+
+<section id="sobre-mi" class="py-20 md:py-28 relative ambient-section ambient-section--reverse wave-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionHeading
+      badge="Sobre mí"
+      title="Experiencia integral en ingeniería de software"
+      subtitle="5 años construyendo plataformas empresariales, aplicaciones móviles y productos SaaS."
+    />
+
+    <!-- Main Bio Box -->
+    <div class="mb-16 p-5 sm:p-10 rounded-3xl glass-card relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col gap-4 max-w-4xl mx-auto text-center sm:text-left">
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+          Perfil profesional y enfoque de desarrollo
+        </h3>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+          Soy desarrollador Full Stack Web & Mobile con 5 años de experiencia. Desarrollo plataformas empresariales, aplicaciones móviles y productos SaaS. Trabajo con PHP, Laravel, CodeIgniter, React, Vue, Astro, Ionic, MySQL y PostgreSQL. Integro APIs, automatizo despliegues y publico aplicaciones en App Store y Google Play.
+        </p>
+      </div>
+    </div>
+
+    <!-- 4 Feature Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {aboutCards.map((card, idx) => {
+        const IconComponent = cardIcons[idx % cardIcons.length];
+        return (
+          <div
+            class="group p-5 sm:p-8 rounded-3xl glass-card hover:shadow-2xl hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between"
+          >
+            <div class="flex flex-col gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-blue-500/10 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                <IconComponent className="w-7 h-7" />
+              </div>
+
+              <h4 class="text-xl font-bold text-slate-900 dark:text-white">
+                {card.title}
+              </h4>
+
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                {card.description}
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+              {card.technologies.map((tech) => (
+                <span
+                  class="px-3 py-1 text-xs font-mono font-medium rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
